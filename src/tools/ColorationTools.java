@@ -237,4 +237,22 @@ public class ColorationTools {
         return null;
     }
 
+    /**
+     * Compte le nombre de voisin de @current_ID dans @edgeList
+     * @param edgeList : liste des arête du graphe
+     * @param current_id : sommet que le veut colorer
+     * @return le nombre de voisin
+     */
+    public static int CountVertexNeighbors(ArrayList<Edge> edgeList, int current_id){
+        int result = 0;
+
+        for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
+            Edge edge = iterator.next();
+            if(edge.getVertex_1().getId() == current_id)
+                result++;
+            if(edge.getVertex_2().getId() == current_id)
+                result++;
+            }
+        return result;
+    }
 }
