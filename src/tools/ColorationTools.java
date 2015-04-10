@@ -224,9 +224,29 @@ public class ColorationTools {
      * @param edgeList
      * @return
      */
-    public static ArrayList<Integer> getDescendingSorted(HashMap<Integer,Integer> degreeList){
-        //TODO 
-        return null;
+    public static ArrayList<Integer> getDescendingSorted(final HashMap<Integer,Integer> degreeList){
+        ArrayList<Integer> sortedList = new ArrayList<Integer>();
+        HashMap<Integer,Integer> clone_degreeList = (HashMap<Integer, Integer>) degreeList.clone();
+        int bestDegree = Integer.MIN_VALUE,
+            bestVertexID= -1, tmpID, tmpDegre;
+        
+        //tant qu'on a pas tous trie
+        while (!clone_degreeList.isEmpty()) {
+            //on parcour les sommets restant pour trouver le prochain plus grand degre
+            for(Iterator<Integer> iterator = clone_degreeList.keySet().iterator(); iterator.hasNext();){
+                tmpID = iterator.next();
+                tmpDegre = clone_degreeList.get(tmpID);
+                if(bestDegree < tmpDegre){
+                    bestDegree = tmpDegre;
+                    bestVertexID = tmpID;
+                }
+            }
+            
+            sortedList.add(bestVertexID);
+            clone_degreeList.remove(bestVertexID);
+            
+        }
+        return sortedList;
     }
 
 
