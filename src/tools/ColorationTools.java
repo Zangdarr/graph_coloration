@@ -251,21 +251,21 @@ public class ColorationTools {
 
 
     /**
-     * Cherche la stable la plus grande non coloré
+     * Cherche la stable la plus grande non colorée
      * @param vertexGroup
      * @param sortedVertex
      * @return
      */
     public static ArrayList<Integer> attributColorTo(final ArrayList<Integer> vertexGroup, final ArrayList<Integer> sortedVertex){
-
+        
         return null;
     }
 
     /**
      * Compte le nombre de voisin de @current_ID dans @edgeList
-     * @param edgeList : liste des arête du graphe
-     * @param current_id : sommet que le veut colorer
-     * @return le nombre de voisin
+     * @param edgeList : liste des arêtes du graphe
+     * @param current_id : sommet que l'on veut colorer
+     * @return le nombre de voisins
      */
     public static int CountVertexNeighbors(final ArrayList<Edge> edgeList, final int current_id){
         int result = 0;
