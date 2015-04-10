@@ -279,4 +279,16 @@ public class ColorationTools {
             }
         return result;
     }
+    
+    public static boolean isVertexGroupNeighbors(final ArrayList<Edge> edgeList, final ArrayList<Integer> groupVertex,final int vertexID){
+
+        for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
+            Edge edge = iterator.next();
+            if(edge.getVertex_1().getId() == vertexID && groupVertex.contains(edge.getVertex_2().getId()))
+                return true;
+            if(edge.getVertex_2().getId() == vertexID && groupVertex.contains(edge.getVertex_1().getId()))
+                return true;
+        }
+        return false;
+    }
 }
