@@ -210,9 +210,13 @@ public class ColorationTools {
      * @param edgeList
      * @return
      */
-    public static HashMap<Integer,Integer> getVertexDegre(Graphe g){
-        //TODO 
-        return null;
+    public static HashMap<Integer,Integer> getVertexDegre(final Graphe g){
+        HashMap<Integer,Integer> vertexDegre = new HashMap<Integer,Integer>();
+        ArrayList<Edge> edgeList = g.getEdgeList();
+        for (Integer vertexID : g.getVertexKeySet()) {
+            vertexDegre.put(vertexID, CountVertexNeighbors(edgeList, vertexID));
+        }
+        return vertexDegre;
     }
 
     /**
