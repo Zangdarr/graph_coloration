@@ -155,7 +155,7 @@ public class ColorationTools {
      * @param g
      * @return
      */
-    public static Coloration WelshPowellColoration(Graphe g) {
+    public static Coloration WelshPowellColoration(final Graphe g) {
         long start = System.nanoTime();
       //map contenant les associations couleur/sommet
         HashMap<Integer,Color> coloration = new HashMap<Integer, Color>();
@@ -175,7 +175,7 @@ public class ColorationTools {
         do {
 
             //Récupération des sommets trié par degre decroissant
-            sortedVertex = getDescendingSorted((HashMap<Integer,Integer>)vertexDegre.clone());
+            sortedVertex = getDescendingSorted(vertexDegre);
 
             //On prend le sommet de plus haut degre
             vertexGroup = new ArrayList<Integer>();
@@ -232,7 +232,7 @@ public class ColorationTools {
      * @param sortedVertex
      * @return
      */
-    public static ArrayList<Integer> attributColorTo(ArrayList<Integer> vertexGroup, ArrayList<Integer> sortedVertex){
+    public static ArrayList<Integer> attributColorTo(final ArrayList<Integer> vertexGroup, final ArrayList<Integer> sortedVertex){
 
         return null;
     }
@@ -243,7 +243,7 @@ public class ColorationTools {
      * @param current_id : sommet que le veut colorer
      * @return le nombre de voisin
      */
-    public static int CountVertexNeighbors(ArrayList<Edge> edgeList, int current_id){
+    public static int CountVertexNeighbors(final ArrayList<Edge> edgeList, final int current_id){
         int result = 0;
 
         for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
