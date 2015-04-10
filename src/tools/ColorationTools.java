@@ -175,7 +175,7 @@ public class ColorationTools {
         do {
 
             //Récupération des sommets trié par degre decroissant
-            sortedVertex = getDescendingSorted(vertexDegre);
+            sortedVertex = getDescendingSorted((HashMap<Integer,Integer>)vertexDegre.clone());
 
             //On prend le sommet de plus haut degre
             vertexGroup = new ArrayList<Integer>();
