@@ -282,6 +282,9 @@ public class ColorationTools {
     
     public static boolean isVertexGroupNeighbors(final ArrayList<Edge> edgeList, final ArrayList<Integer> groupVertex,final int vertexID){
 
+        if(groupVertex.contains(vertexID))
+            return true;
+        
         for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
             Edge edge = iterator.next();
             if(edge.getVertex_1().getId() == vertexID && groupVertex.contains(edge.getVertex_2().getId()))
