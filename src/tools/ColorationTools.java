@@ -156,8 +156,53 @@ public class ColorationTools {
      * @return
      */
     public static Coloration WelshPowellColoration(Graphe g) {
+        long start = System.nanoTime();
+      //map contenant les associations couleur/sommet
+        HashMap<Integer,Color> coloration = new HashMap<Integer, Color>();
+        //liste contenant toutes les couleurs crée
+        HashMap<Integer,Color> colorList = new HashMap<Integer,Color>();
+        //sert à l'attribution des ID au couleur
+        AtomicInteger next_color_ID = new AtomicInteger();
+        int new_color_id;
+        Color c;
+        HashMap<Integer,Integer> vertexDegre;
+        ArrayList<Integer> sortedVertex,
+                           vertexGroup;
         
-        return null;
+        //Récupération des sommets associés à leur degres
+        vertexDegre = getVertexDegre(g);
+
+        do {
+
+            //Récupération des sommets trié par degre decroissant
+            sortedVertex = getDescendingSorted(vertexDegre);
+
+            //On prend le sommet de plus haut degre
+            vertexGroup = new ArrayList<Integer>();
+            vertexGroup.add(sortedVertex.get(0));
+
+            //recherche d"une stable de sommet priorisant les sommets de degre les plus eleves
+            vertexGroup = attributColorTo(vertexGroup, sortedVertex);
+            
+            // attribution de la couleur à toute la stabe trouvee
+            // && supprimer les sommet coloré de vertexdegre
+            new_color_id = next_color_ID.getAndIncrement();
+            c = new Color(new_color_id, "Couleur " +new_color_id);
+            colorList.put(new_color_id,c);            
+            for (Iterator<Integer> iterator = vertexGroup.iterator(); iterator.hasNext();) {
+                Integer integer = iterator.next();
+                coloration.put(integer, c);
+                vertexDegre.remove(integer);
+            }
+            
+            
+
+        } while(!vertexDegre.isEmpty());
+
+        long end = System.nanoTime();
+        System.out.println("done.\nExecution time : " + (end-start)/Math.pow(10, 9));
+        
+        return new Coloration(g,coloration,colorList);
     }
 
     /**
