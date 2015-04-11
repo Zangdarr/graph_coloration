@@ -225,11 +225,12 @@ public class ColorationTools {
      * @param edgeList
      * @return
      */
-    public static ArrayList<Integer> getDescendingSorted(final HashMap<Integer,Integer> degreeList){
+    protected static ArrayList<Integer> getDescendingSorted(final HashMap<Integer,Integer> degreeList){
         ArrayList<Integer> sortedList = new ArrayList<Integer>();
         HashMap<Integer,Integer> clone_degreeList = (HashMap<Integer, Integer>) degreeList.clone();
         int bestDegree = Integer.MIN_VALUE,
             bestVertexID= -1, tmpID, tmpDegre;
+        int i = 0;
         
         //tant qu'on a pas tous trie
         while (!clone_degreeList.isEmpty()) {
@@ -245,8 +246,9 @@ public class ColorationTools {
             
             sortedList.add(bestVertexID);
             clone_degreeList.remove(bestVertexID);
-            
+            bestDegree = Integer.MIN_VALUE;
         }
+        System.out.println("OK");
         return sortedList;
     }
 
