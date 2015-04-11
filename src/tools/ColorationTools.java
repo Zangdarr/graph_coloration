@@ -5,6 +5,7 @@ import graphe.Graphe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ColorationTools {
@@ -250,6 +251,34 @@ public class ColorationTools {
         }
         System.out.println("OK");
         return sortedList;
+    }
+    
+    /**
+     * Retourne les sommets tries dans l'ordre decroissant de leur degre en appliquant le tri fusion
+     * @param edgeList
+     * @return
+     */
+    protected static ArrayList<Integer> getDescendingFusionSorted(final HashMap<Integer,Integer> degreeList){
+        int[] tableIndice = new int[degreeList.size()],
+              tableValeur = new int[degreeList.size()],
+              matchKeyIndice = new int[degreeList.size()];
+        
+        Set<Integer> set = degreeList.keySet();
+        int count = 0;
+        for (Integer i : set) {
+            tableIndice[count] = count;
+            tableValeur[count] = degreeList.get(i);
+            matchKeyIndice[count++] = i;
+        }
+
+        TriFusionTool.triFusion(tableValeur,tableIndice);
+        
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for (int i = tableIndice.length-1; i >= 0; i--) {
+            result.add(matchKeyIndice[tableIndice[i]]);
+        }
+        System.out.println(result.size());
+        return result;
     }
 
 
