@@ -177,14 +177,14 @@ public class ColorationTools {
         do {
 
             //Récupération des sommets trié par degre decroissant
-            sortedVertex = getDescendingSorted(vertexDegre);
+            sortedVertex = getDescendingFusionSorted(vertexDegre);
 
             //On prend le sommet de plus haut degre
             vertexGroup = new ArrayList<Integer>();
             vertexGroup.add(sortedVertex.get(0));
 
             //recherche d"une stable de sommet priorisant les sommets de degre les plus eleves
-            vertexGroup = attributColorTo(vertexGroup, sortedVertex);
+            vertexGroup = attributColorTo(edgeList,vertexGroup, sortedVertex,0);
             
             // attribution de la couleur à toute la stabe trouvee
             // && supprimer les sommet coloré de vertexdegre
