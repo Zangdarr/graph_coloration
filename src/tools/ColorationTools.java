@@ -168,6 +168,7 @@ public class ColorationTools {
         HashMap<Integer,Integer> vertexDegre;
         ArrayList<Integer> sortedVertex,
                            vertexGroup;
+        ArrayList<Edge> edgeList = g.getEdgeList();
         
         //Récupération des sommets associés à leur degres
         vertexDegre = getVertexDegre(g);
