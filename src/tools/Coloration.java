@@ -46,7 +46,7 @@ public class Coloration {
     public String toStringMinimal(){
         StringBuffer result = new StringBuffer("");
         result.append("Nombre de couleur : ");
-        result.append(colorList.size()-1);
+        result.append(colorList.size());
         result.append('\n');
         
         HashMap<Integer,Integer> list = getTabColorCounter();
@@ -66,7 +66,7 @@ public class Coloration {
     public String toString(){
         StringBuffer result = new StringBuffer("");
         result.append("Nombre de couleur : ");
-        result.append(colorList.size()-1);
+        result.append(colorList.size());
         result.append('\n');
         
         
