@@ -86,7 +86,7 @@ public class ColorationTools {
      * @param default_pos : position dans la liste des couleurs de la couleur par defaut
      * @return 
      */
-    public static int[] setColorTab(final HashMap<Integer,Color> coloration, final HashMap<Integer,Color> colorList, final ArrayList<Edge> edgeList,final int vertexID, final int default_pos){
+    protected static int[] setColorTab(final HashMap<Integer,Color> coloration, final HashMap<Integer,Color> colorList, final ArrayList<Edge> edgeList,final int vertexID, final int default_pos){
         int tmp,
         neighborColorID;
         int[] colorTab = InitColorTab(colorList, default_pos);
@@ -106,7 +106,7 @@ public class ColorationTools {
      * @param default_pos
      * @return
      */
-    public static int[] InitColorTab(final HashMap<Integer,Color> colorList, final int default_pos){
+    protected static int[] InitColorTab(final HashMap<Integer,Color> colorList, final int default_pos){
         int[] tab = new int[colorList.size()];
         int i = 0;
         for (Iterator<Integer> iterator = colorList.keySet().iterator(); iterator.hasNext();) {
@@ -126,7 +126,7 @@ public class ColorationTools {
      * @param current_id : sommet que le veut colorer
      * @return
      */
-    public static Iterator<Integer> getVertexNeighbors(ArrayList<Edge> edgeList, int current_id){
+    protected static Iterator<Integer> getVertexNeighbors(ArrayList<Edge> edgeList, int current_id){
         ArrayList<Integer> result = new ArrayList<Integer>();
 
         for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
@@ -210,7 +210,7 @@ public class ColorationTools {
      * @param edgeList
      * @return
      */
-    public static HashMap<Integer,Integer> getVertexDegre(final Graphe g){
+    protected static HashMap<Integer,Integer> getVertexDegre(final Graphe g){
         HashMap<Integer,Integer> vertexDegre = new HashMap<Integer,Integer>();
         ArrayList<Edge> edgeList = g.getEdgeList();
         for (Integer vertexID : g.getVertexKeySet()) {
@@ -267,7 +267,7 @@ public class ColorationTools {
      * @param current_id : sommet que l'on veut colorer
      * @return le nombre de voisins
      */
-    public static int CountVertexNeighbors(final ArrayList<Edge> edgeList, final int current_id){
+    protected static int CountVertexNeighbors(final ArrayList<Edge> edgeList, final int current_id){
         int result = 0;
 
         for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
@@ -280,7 +280,7 @@ public class ColorationTools {
         return result;
     }
     
-    public static boolean isVertexGroupNeighbors(final ArrayList<Edge> edgeList, final ArrayList<Integer> groupVertex,final int vertexID){
+    protected static boolean isVertexGroupNeighbors(final ArrayList<Edge> edgeList, final ArrayList<Integer> groupVertex,final int vertexID){
 
         if(groupVertex.contains(vertexID))
             return true;
