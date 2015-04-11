@@ -257,11 +257,18 @@ public class ColorationTools {
      * Cherche la stable la plus grande non colorée
      * @param vertexGroup
      * @param sortedVertex
-     * @return
+     * @return la liste de vertex avec un nouveau membre pour la stabe s'il il y a.
      */
-    public static ArrayList<Integer> attributColorTo(final ArrayList<Integer> vertexGroup, final ArrayList<Integer> sortedVertex){
-        
-        return null;
+    protected static ArrayList<Integer> attributColorTo(final ArrayList<Edge> edgeList, final ArrayList<Integer> vertexGroup, final ArrayList<Integer> sortedVertex, int from){
+        int tmp = -1;
+        for (int i = from; i < sortedVertex.size();i++) {
+            tmp = sortedVertex.get(i);
+            if(!isVertexGroupNeighbors(edgeList, vertexGroup, tmp)){
+                vertexGroup.add(tmp);
+                return attributColorTo(edgeList, vertexGroup, sortedVertex, tmp);
+            }
+        }
+        return vertexGroup;
     }
 
     /**
