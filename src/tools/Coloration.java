@@ -11,6 +11,7 @@ public class Coloration {
     private Graphe g;
     private HashMap<Integer, Color> color; // map vertexID/color
     private HashMap<Integer,Color> colorList; //color list
+    private double executionTime;
     
     
     /**
@@ -19,11 +20,12 @@ public class Coloration {
      * @param color
      * @param colorList
      */
-    public Coloration(Graphe g, HashMap<Integer, Color> color, HashMap<Integer,Color> colorList) {
+    public Coloration(Graphe g, HashMap<Integer, Color> color, HashMap<Integer,Color> colorList, double executionTime) {
         super();
         this.g = g;
         this.color = color;
         this.colorList = colorList;
+        this.executionTime = executionTime;
     }
     
     public HashMap<Integer,Integer> getTabColorCounter(){
@@ -63,6 +65,12 @@ public class Coloration {
     }
     
     
+    
+    
+    public double getExecutionTime() {
+        return executionTime;
+    }
+
     public String toString(){
         StringBuffer result = new StringBuffer("");
         result.append("Nombre de couleur : ");
