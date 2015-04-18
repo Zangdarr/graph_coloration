@@ -257,7 +257,6 @@ public class ColorationTools {
             clone_degreeList.remove(bestVertexID);
             bestDegree = Integer.MIN_VALUE;
         }
-        System.out.println("OK");
         return sortedList;
     }
     
@@ -285,7 +284,6 @@ public class ColorationTools {
         for (int i = tableIndice.length-1; i >= 0; i--) {
             result.add(matchKeyIndice[tableIndice[i]]);
         }
-        System.out.println(result.size());
         return result;
     }
 
