@@ -35,4 +35,11 @@ public class GreedyMain {
         System.out.println("GREEDY  GREEDY  GREEDY  GREEDY  GREEDY  GREEDY  GREEDY  GREEDY  GREEDY  GREEDY  ");
 
     }
+    
+    public static Coloration callGreedy(Graphe g){
+       
+        return ColorationTools.greedyColoration(g);
+
+
+    }
 }
