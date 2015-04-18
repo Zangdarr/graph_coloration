@@ -90,4 +90,8 @@ public class Coloration {
         
         return result.toString();
     }
+    
+    public int getNbColors(){
+        return colorList.size();
+    }
 }
