@@ -3,7 +3,7 @@ Ce projet consiste à présenter les performances de différents algorithmes de 
 
 
 ## Algorithmes programmés
-Pour ce projet, trois algorithmes on été implémentés et testés : 
+Pour ce projet, trois algorithmes ont été implémentés et testés : 
 
 * [Greedy Coloration] qui est une heuristique gloutonne de coloration de graphe faite maison.
 * [Welsh-Powell Coloration] qui implémente la stratégie fournie par ses deux concepteurs d'où provient son nom.
@@ -69,6 +69,7 @@ Ci dessous des triplets d'executions sur différents graphes :
          - Greedy       colors quantity : 100
          - Welsh-Powell colors quantity : 100
          - DSAT         colors quantity : 100
+
 * Pour un graphe de 10 sommets avec 0.7 pour les arêtes :
         [[  PERFORMANCES  ]] 
         
@@ -81,6 +82,7 @@ Ci dessous des triplets d'executions sur différents graphes :
          - Greedy       colors quantity : 6
          - Welsh-Powell colors quantity : 5
          - DSAT         colors quantity : 5
+
 * Pour un graphe de 10 sommets avec 1.0 pour les arêtes donc complet :
         [[  PERFORMANCES  ]] 
         
