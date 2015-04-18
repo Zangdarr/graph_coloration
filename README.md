@@ -1,4 +1,4 @@
-# AEA TP3 Coloration de Graphe
+# AEA TP3 Coloration de Graphes
 Ce projet consiste à présenter les performances de différents algorithmes de coloration de graphe. L'implémentation influera grandement sur les résultats. 
 
 
@@ -15,7 +15,7 @@ Tout au long du projet la question de l'implémentation à été un point crucia
 * Pour [Welsh-Powell Coloration], de nombreuses zones stratégiques sont à prendre en compte : la recherche des degrés de chaque sommet, le tri par ordre décroissant et surtout la recherche de la plus grande stable qui maximise les degrés de ses sommets. Chacun de ses points influe sur les performances. L'emploie par cette algorithme d'un tri fusion ainsi que d'une fonction récursive terminal pour la recherche de stable joue en la faveur de ses performances.
 * Pour [DSAT Coloration], même chose qu'avec WP-Coloration pour les degrés de chaque sommet trié, mais ensuite il est purement question de quelles informations conservées sous la main pour optimiser les calculs. Le choix de garder les voisins de chaque sommet dans une Map, ainsi que de conservé la couleur de chacun des sommets dans une autre map permet de rapidement accéder aux informations pertinentes et de les mettres à jours. De plus un petit "trick" mathématique pour déterminer quelle est la plus petite couleur disponible pour un sommet donné permet d'améliorer les performance.
 
-## Performance
+## Performances
 Ci dessous des triplets d'executions sur différents graphes :
 
 * Pour un graphe de 1000 sommets avec 0.7 pour les arêtes : 
