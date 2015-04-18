@@ -209,9 +209,10 @@ public class ColorationTools {
         } while(!vertexDegre.isEmpty());
 
         long end = System.nanoTime();
-        System.out.println("done.\nExecution time : " + (end-start)/Math.pow(10, 9));
+        double executionTime = (end-start)/Math.pow(10, 9);
+        System.out.println("Welsh-Powell coloration done.\nExecution time : " + executionTime);
         
-        return new Coloration(g,coloration,colorList);
+        return new Coloration(g,coloration,colorList, executionTime);
     }
 
     /**
