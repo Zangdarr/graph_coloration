@@ -339,4 +339,203 @@ public class ColorationTools {
         }
         return false;
     }
+    
+    
+    /*************************************************************************************************************************************/
+    /*************************************************************************************************************************************/
+    /*************************************************************************************************************************************/
+    /*************************************************************************************************************************************/
+    /*************************************************************************************************************************************/
+
+    
+    /**
+     * Applique l'algorithme de coloration de DSAT sur g
+     * @param g
+     * @return
+     */
+    public static Coloration DSATColoration(final Graphe g) {
+        
+          /** Declarations de base ***********************************************************************/
+          final long start = System.nanoTime();
+          //map contenant les associations couleur/sommet
+          final HashMap<Integer,Color> coloration = new HashMap<Integer, Color>();
+          //liste contenant toutes les couleurs crée
+          final HashMap<Integer,Color> colorList = new HashMap<Integer,Color>();
+          //sert à l'attribution des ID au couleur
+          final AtomicInteger next_color_ID = new AtomicInteger();
+          //variable temporaire pour l'ID de la nouvelle couleur
+          int new_color_id;
+          //Objet qui instanciera les couleurs
+          Color c;
+          //liste des arête du graphe
+          final ArrayList<Edge> edgeList = g.getEdgeList();
+          
+          /** Déclarations spécifiques********************************************************************/
+          //map des degres de chaque sommet
+          HashMap<Integer,Integer> vertexDegre;
+          
+          ArrayList<Integer> sortedVertex;//liste des sommets tries par degre
+          HashMap<Integer,Integer> nbVoisinsColorList = new HashMap<Integer,Integer>();//liste contenant le nombre de voisins colores de chaque vertex
+          
+          //liste des voisins de chaque sommet
+          final HashMap<Integer, ArrayList<Integer>> voisins = new HashMap<Integer,ArrayList<Integer>>();
+          //liste des couleurs des voisins existante
+          final HashMap<Integer, ArrayList<Integer>> couleursVoisines = new HashMap<Integer,ArrayList<Integer>>();
+          
+
+          /** Initialisation ******************************************************************************/
+          //Récupération des sommets associés à leur degres
+          vertexDegre = getVertexDegre(g);
+          
+          /** 1 *******/
+          /** 2 *******/
+          for (Integer vertexID : vertexDegre.keySet()) {
+              //Association des sommets à leur voisins
+              voisins.put(vertexID, getVertexNeighborsList(edgeList, vertexID)); 
+              //Association des sommets aux couleurs de leur voisins
+              couleursVoisines.put(vertexID, new ArrayList<Integer>());
+              nbVoisinsColorList.put(vertexID,0);
+          }
+          
+          /** 3 *******/
+          //Récupération des sommets trié par degre decroissant
+          sortedVertex = getDescendingFusionSorted(vertexDegre);
+
+          /** 4 *******/
+          //On associe la premiere couleur au sommet de plus haut degre
+          int vertexID = sortedVertex.get(0);
+          new_color_id = next_color_ID.getAndIncrement();
+          c = new Color(new_color_id,"Couleur " + new_color_id);
+          colorList.put(new_color_id, c);
+          coloration.put(vertexID, c);
+          for (Integer v : voisins.get(vertexID)) {
+              couleursVoisines.get(v).add(new_color_id);
+              nbVoisinsColorList.put(v, nbVoisinsColorList.get(v) + 1);
+          }
+          
+          int untilNbVertex = g.getVertexQuantity();
+          
+          /** Boucle principale ***************************************************************************/
+          do {
+              /*************************************************/
+              //find the max SAT vertex
+              /** Tri sur les SAT *******/
+              int[] repere = new int[nbVoisinsColorList.size()],
+                    values = new int[nbVoisinsColorList.size()];
+              for (int i = 0 ; i<repere.length; i++) {
+                  repere[i] = i+1;
+                  values[i] = nbVoisinsColorList.get(i+1);
+              }
+              TriFusionTool.triFusion(values, repere);
+              
+              
+              /** Recuperation des vertex qui ont maxSAT *******/
+              ArrayList<Integer> tmpListMAXSAT = new ArrayList<Integer>();
+              boolean isMax = true,
+                      first = true;
+              int max = Integer.MIN_VALUE;
+              
+              for(int i = repere.length-1;i >=0 && isMax ;i--){
+                  if(coloration.containsKey(repere[i]))
+                      continue;   
+                  if(first){//on trouve le premier vertex qui n'as pas été coloré comme base pour MAX
+                      max = values[i];
+                      tmpListMAXSAT.add(repere[i]);
+                      first = false;
+                      continue;
+                  }
+                  if((isMax = (values[i] == max))) 
+                      tmpListMAXSAT.add(repere[i]);
+              }
+              
+              
+              /** Selection de celui ayant le plus haut degre *******/
+              max = Integer.MIN_VALUE;
+              int choosenVertex = 0;
+
+              for (Integer v : tmpListMAXSAT){
+                  if(coloration.containsKey(v)) continue;
+                  int current_degree = vertexDegre.get(v);
+                  if( current_degree > max){
+                      max = current_degree;
+                      choosenVertex = v;
+                  }
+              }
+              
+              
+              /** Choix de la coloration du vertex  ******/
+              int intChoosenColor = -1;
+              int previous = 0;
+              ArrayList<Integer> list = (ArrayList<Integer>) couleursVoisines.get(choosenVertex).clone();
+              Collections.sort(list);
+              
+              if(list.get(0) != 0){
+                  intChoosenColor = 0;
+                  
+              }
+              else{
+                  int tmp1;
+                  for (int i = 1; i < list.size(); i++) {
+                      tmp1 = list.get(i) - previous;
+                      if(tmp1 != 1){// si différent de 1 alors il y a au moins une couleur de libre entre tmp1 et la couleur précédente
+                          intChoosenColor = previous + 1;
+                          break;
+                      }
+                      else {
+                          previous = list.get(i);
+                      }
+                  }
+              }
+              
+              //pas de couleur disponible(toutes les couleurs existantes sont occupees par les voisins)
+              //creation d'une nouvelle couleur
+              if(intChoosenColor == -1) {
+                  new_color_id = next_color_ID.getAndIncrement();
+                  c = new Color(new_color_id,"Couleur " + new_color_id);
+                  colorList.put(new_color_id, c);
+              }
+              else{
+                  c = colorList.get(intChoosenColor);
+              }
+              /** Ajout du sommet colore *******/
+              coloration.put(choosenVertex, c);
+              
+              /** Mise a jour des couleurs voisines des voisin du sommet qui vient d'etre colore ******/
+              for (Integer v : voisins.get(choosenVertex)){
+                  nbVoisinsColorList.put(v, nbVoisinsColorList.get(v) + 1);
+                  if(! couleursVoisines.get(v).contains(new_color_id))
+                      couleursVoisines.get(v).add(new_color_id);
+              }
+              
+          } while(coloration.size() < untilNbVertex);
+
+          long end = System.nanoTime();
+          double exexutionTime = (end-start)/Math.pow(10, 9);
+          System.out.println("DSAT coloration done.\nExecution time : " + exexutionTime);
+          
+          
+          return new Coloration(g,coloration,colorList, exexutionTime);
+
+        
+    }
+    
+    /**
+     * Trouve les voisin de @current_ID dans @edgeList
+     * @param edgeList : liste des arête du graphe
+     * @param current_id : sommet que le veut colorer
+     * @return
+     */
+    protected static ArrayList<Integer> getVertexNeighborsList(ArrayList<Edge> edgeList, int current_id){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+
+        for (Iterator<Edge> iterator = edgeList.iterator(); iterator.hasNext();) {
+            Edge edge = iterator.next();
+            if(edge.getVertex_1().getId() == current_id)
+                result.add(edge.getVertex_2().getId());
+            if(edge.getVertex_2().getId() == current_id)
+                result.add(edge.getVertex_1().getId());
+        }
+        return result;
+    }
+    
 }
