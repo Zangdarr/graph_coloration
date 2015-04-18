@@ -35,5 +35,11 @@ public class WelshPowellMain {
 
     }
     
+    public static Coloration callWelshPowell(Graphe g){
+       
+        return ColorationTools.WelshPowellColoration(g);
+
+    }
+    
     
 }
