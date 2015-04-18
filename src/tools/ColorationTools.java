@@ -75,8 +75,14 @@ public class ColorationTools {
 
         }
         long end = System.nanoTime();
-        System.out.println("done.\nExecution time : " + (end-start)/Math.pow(10, 9));
-        return new Coloration(g, coloration, colorList);
+        
+        double executionTime = (end-start)/Math.pow(10, 9);
+        System.out.println("Greedy coloration done.\nExecution time : " + executionTime );
+        
+        
+        colorList.remove(g.getVertexQuantity());
+        return new Coloration(g, coloration, colorList, executionTime);
+
     }
 
     /**
